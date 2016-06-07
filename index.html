@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Game</title>
+    <script type="text/javascript" src="phaser.min.js"></script>
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+
+        /* From bootstrap */
+        color: #333;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        line-height: 1.42857143;
+        font-size: 14px;
+      }
+
+      *:focus {
+        outline: none;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+
+
+
+
+      .modal {
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      .modal-body {
+          background-color: #fefefe;
+          margin: 0px auto; /* 15% from the top and centered */
+          padding: 20px;
+
+          border: 1px solid #888;
+          border-bottom-left-radius: 9px;
+          border-bottom-right-radius: 9px;
+
+          width: 70%;
+          box-shadow: 0px 0px 30px 0 rgba(0,0,0,0.2),0px 0px 30px 0 rgba(0,0,0,0.2);
+          text-align: center;
+
+          animation-name: animatetop;
+          animation-duration: 0.4s;
+      }
+
+      @media (max-width: 60em) {
+        .modal-body {
+          width: 85%;
+        }
+      }
+      @-webkit-keyframes animatetop {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+      }
+      @keyframes animatetop {
+        from {top: -300px; opacity: 0}
+        to {top: 0; opacity: 1}
+      }
+
+      .modal-body > .lead {
+        font-size: 18px;
+      }
+
+      .button {
+				width: 100%;
+				height: 40px;
+        background: linear-gradient(#751aff, #6600ff);
+        border: 1px solid #330080;
+        border-radius: 9px;
+        color: #FFF;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        line-height: 1.42857143;
+        font-size: 24px;
+        text-shadow: 2px 2px 7px #290066;
+      }
+
+      .button:hover {
+        background: linear-gradient(#6600ff, #5c00e6);
+        text-shadow: 2px 2px 3px #290066;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game" style="width: 100%; height: 100vh;"></div>
+    <div class="modal hidden" id="modal_gameover">
+      <div class="modal-body">
+  			<h1>Your score: <span id="span_score" style="text-decoration: underline;">0</span></h1>
+  			<p class="lead">
+  				You've failed! Want to try again or submit your highscore?
+  			</p>
+        <br>
+        <br>
+        <table style="width: 100%;">
+  				<tr>
+  					<td style="width: 50%;"><button class="button" id="button_tryagain">Try again!</button></td>
+            <td style="width: 50%;"><button class="button" id="button_submit">Submit score!</button></td>
+  				</tr>
+  			</table>
+      </div>
+    </div>
+    <div class="modal" id="modal_about">
+      <div class="modal-body">
+        <img src="assets/logo.png" alt="logo">
+        <h1>About</h1>
+        <p class="lead">
+  				Try to click all the balloons to get to the top of the highscore!<br>
+  				Collect special balloons for cool effects!<br>
+  				Don't click the bombs though, you'll lose if you do.<br>
+        </p>
+        <p>
+  				This game was written in Javascript by max1220(<a href="https://github.com/max1220/">github</a>) and Befrog(<a href="https://github.com/Befrog57/">github</a>).<br>
+  				All graphics were created in mspaint, audio files were created in audacity.
+  			</p>
+        <p class="lead">
+          <a href="https://github.com/max1220/balloons">Source code</a>
+        </p>
+        <br>
+        <br>
+        <button class="button" id="button_start">Start game!</button>
+      </div>
+		</div>
+    <script src="game.js"></script>
+  </body>
+</html>

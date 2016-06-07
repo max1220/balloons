@@ -1,0 +1,6 @@
+ * More values in config instead of hard-coded values
+ * highscore
+ * fix lifes bug
+ * fix acceleration
+ * accelerating balloons/faster balloons in the later stages of the game
+ * clearbomb ring explode
