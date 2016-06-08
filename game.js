@@ -7,22 +7,6 @@ var button_start = document.getElementById("button_start")
 var button_submit = document.getElementById("button_submit")
 var button_tryagain = document.getElementById("button_tryagain")
 
-
-button_start.onclick = function() {
-	cmode = "start";
-}
-
-button_submit.onclick = function() {
-	// TODO
-	cmode = "start";
-}
-
-button_tryagain.onclick = function() {
-	cmode = "start";
-}
-
-
-
 var game = new Phaser.Game(gameContainer.clientWidth, gameContainer.clientHeight, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
 
 var config = {
@@ -39,12 +23,33 @@ var config = {
   balloon_sprite_count: 5,
 	speed_accel: 1/10000000,
 	speed_max: 0.5,
-	debug_mode: true
+	debug_mode: false,
+	last_username: "Unnamed"
 };
 var state = {};
 var cmode = "about";
 var balloons = Array(0);
 var text = "";
+
+
+
+button_start.onclick = function() {
+	cmode = "start";
+}
+
+button_submit.onclick = function() {
+	// TODO
+
+	console.log("asasdasd")
+
+	var username = window.prompt("Username?", config.last_username)
+	config.last_username = username
+	cmode = "start";
+}
+
+button_tryagain.onclick = function() {
+	cmode = "start";
+}
 
 
 
@@ -452,7 +457,7 @@ function update() {
 
 			state.speed = Math.min(state.speed + dt * config.speed_accel, config.speed_max)
       balloon.img.y -= (dt * balloon.velocity) + (dt * state.speed);
-			
+
       return true;
     });
 
