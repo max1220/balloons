@@ -36,7 +36,10 @@ var config = {
   balloon_colors: [ "red", "lightblue", "darkblue", "grey", "lime", "orange", "purple", "wine", "yellow" ],
   balloon_sprite_width: 24,
   balloon_sprite_height: 36,
-  balloon_sprite_count: 5
+  balloon_sprite_count: 5,
+	speed_accel: 1/10000000,
+	speed_max: 0.5,
+	debug_mode: true
 };
 var state = {};
 var cmode = "about";
@@ -357,6 +360,7 @@ function update() {
       lifes: config.max_lifes,
       lifes_img: Array(0),
       timepassed: 0,
+			speed: 0,
       timers: [
         {
           left: getRandomInt(config.normal_spawn_min, config.normal_spawn_max),
@@ -446,8 +450,9 @@ function update() {
           })
       }
 
-      balloon.img.y -= dt * balloon.velocity;
-      // balloon.velocity += dt * balloon.velocity * balloon.acceleration; // TODO
+			state.speed = Math.min(state.speed + dt * config.speed_accel, config.speed_max)
+      balloon.img.y -= (dt * balloon.velocity) + (dt * state.speed);
+			
       return true;
     });
 
@@ -455,6 +460,16 @@ function update() {
     updateStats();
 
   } else if (cmode == "end") {
+
+		if (config.debug_mode) {
+			console.log("DEBUG MODE: You'd be dead right now!")
+			console.log("DEBUG MODE: Resetting lives, rejoining game...")
+			state.lifes = config.max_lifes;
+			cmode = "game"
+			return
+		}
+
+
     balloons.filter(function(balloon) {
       balloon.img.destroy();
       return false;
