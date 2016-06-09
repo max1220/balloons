@@ -18,7 +18,29 @@ function template(body, title)
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>{{title}}</title>
       <style>
-
+        html, body {s
+          /* From bootstrap */
+          color: #333;
+          font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+          line-height: 1.42857143;
+          font-size: 14px;
+        }
+        .highscore {
+          margin-top: 10px;
+          width: 100%;
+          border: 1px solid #ddd;
+        }
+        .highscore > tbody > tr {
+          height: 2em;
+        }
+        .highscore > tbody > tr > th {
+          border-bottom: 1px solid #ddd;
+          text-align: left;
+          padding-left: 0.5em;
+        }
+        .highscore > tbody > tr > td {
+          padding-left: 1em;
+        }
       </style>
     </head>
     <body>
@@ -173,16 +195,18 @@ end
 function http_GET(parms)
   log("GET")
   entrys = getEntrysScore()
-  local str = "<h1>Highscore(1-10) by score!</h1>\n<a href=\"../score.txt\">complete highscore dump</a>\n<pre>\n"
+  --local str = "<h1>Highscore(1-10) by score!</h1>\n<a href=\"../score.txt\">complete highscore dump</a>\n<pre>\n"
+  local str = "<h1>Highscore(1-10) by score</h1>\n<a href=\"../score.txt\">complete highscore dump</a>\n<table class=\"highscore\">\n<tr>\n\t<th><b>Name</b></th>\n\t<th><b>Date</b></th>\n\t<th><b>Score</b></th>\n</tr>\n"
   for i=1, 10 do
     local centry = entrys[i]
     if centry then
-      str = str .. ("[%s] %s (%d)\n"):format(os.date("%c", centry.time), htmlescape(centry.name), centry.popped)
+      --str = str .. ("[%s] %s (%d)\n"):format(os.date("%c", centry.time), htmlescape(centry.name), centry.popped)
+      str = str .. ("<tr>\n\t<td>%s</td>\n\t<td>%s</td>\n\t<td>%d</td>\n</tr>\n"):format(htmlescape(centry.name), os.date("%c", centry.time), centry.popped)
     else
       break
     end
   end
-  str = str .. "</pre>\n<p>total entrys: " .. #entrys .. "</p>"
+  str = str .. "</table>\n<p>total entrys: <b>" .. #entrys .. "</b></p>"
   return template(str, "highscore")
 end
 
