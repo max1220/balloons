@@ -24,7 +24,8 @@ var config = {
 	speed_accel: 1/10000000,
 	speed_max: 0.5,
 	debug_mode: false,
-	last_username: "Unnamed"
+	last_username: "Unnamed",
+	highscore_url: "/highscore_url" // The URL we post the score to, and redirect on the highscore link
 };
 var state = {};
 var cmode = "about";
