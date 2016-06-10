@@ -194,19 +194,27 @@ end
 
 function http_GET(parms)
   log("GET")
-  entrys = getEntrysScore()
-  --local str = "<h1>Highscore(1-10) by score!</h1>\n<a href=\"../score.txt\">complete highscore dump</a>\n<pre>\n"
-  local str = "<h1>Highscore(1-10) by score</h1>\n<a href=\"../score.txt\">complete highscore dump</a>\n<table class=\"highscore\">\n\t<tr>\n\t\t<th><b>Name</b></th>\n\t\t<th><b>Date</b></th>\n\t\t<th><b>Score</b></th>\n\t</tr>\n"
+
+  local entrys
+  local sortby = "score"
+  if parms.sort == "time" then
+    sortby = "time"
+    entrys = getEntrysTime()
+  else
+    entrys = getEntrysScore()
+  end
+
+  local str = "<h1>Highscore(1-10) by " .. sortby .. "</h1>\n<table class=\"highscore\">\n\t<tr>\n\t\t<th><b>Name</b></th>\n\t\t<th><b>Date</b></th>\n\t\t<th><b>Score</b></th>\n\t</tr>\n"
   for i=1, 10 do
     local centry = entrys[i]
     if centry then
-      --str = str .. ("[%s] %s (%d)\n"):format(os.date("%c", centry.time), htmlescape(centry.name), centry.popped)
       str = str .. ("\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%d</td>\n\t</tr>\n"):format(htmlescape(centry.name), os.date("%c", centry.time), centry.popped)
     else
       break
     end
   end
-  str = str .. "</table>\n<p>total entrys: <b>" .. #entrys .. "</b></p>"
+  str = str .. "</table>\n<p>\n\ttotal entrys: <b>" .. #entrys .. "</b> | <a href=\"../score.txt\">complete highscore dump</a>\n</p>\n"
+
   return template(str, "highscore")
 end
 
