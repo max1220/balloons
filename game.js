@@ -1,11 +1,13 @@
 var gameContainer = document.getElementById("game")
 var modal_about = document.getElementById("modal_about")
 var modal_gameover = document.getElementById("modal_gameover")
-var modal_gameover = document.getElementById("modal_gameover")
+var modal_highscore = document.getElementById("modal_highscore")
+var modals = { about: modal_about, gameover: modal_gameover, highscore: modal_highscore }
 var span_score = document.getElementById("span_score")
 var button_start = document.getElementById("button_start")
 var button_submit = document.getElementById("button_submit")
 var button_tryagain = document.getElementById("button_tryagain")
+var iframe_highscore = document.getElementById("iframe_highscore")
 
 var game = new Phaser.Game(gameContainer.clientWidth, gameContainer.clientHeight, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
 
@@ -25,7 +27,7 @@ var config = {
 	speed_max: 0.5,
 	debug_mode: false,
 	last_username: "Unnamed",
-	highscore_url: "/highscore_url" // The URL we post the score to, and redirect on the highscore link
+	highscore_url: "/cgi-bin/highscore.lua" // The URL we post the score to, and redirect on the highscore link
 };
 var state = {};
 var cmode = "about";
@@ -39,13 +41,28 @@ button_start.onclick = function() {
 }
 
 button_submit.onclick = function() {
-	// TODO
-
-	console.log("asasdasd")
-
 	var username = window.prompt("Username?", config.last_username)
 	config.last_username = username
-	cmode = "start";
+
+  xhr = new XMLHttpRequest();
+
+  xhr.open("POST", config.highscore_url, true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(urlencode({
+    name: username,
+    config: JSON.stringify(config),
+    state: JSON.stringify(state)
+  }));
+
+  iframe_highscore.src = config.highscore_url;
+  iframe_highscore.onload = function() {
+    iframe_highscore.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+  }
+
+  console.log("Hello World!")
+  showModal("highscore");
+
+	// cmode = "start";
 }
 
 button_tryagain.onclick = function() {
@@ -53,8 +70,25 @@ button_tryagain.onclick = function() {
 }
 
 
+function urlencode(data) {
+  var ret = ""
+  Object.keys(data).forEach(function(index) {
+    ret += encodeURIComponent(index) + "=" + encodeURIComponent(data[index]) + "&";
+  })
+  return ret.slice(0, -1).replace(/%20/g, '+');
+}
 
 
+
+function showModal(modal) {
+  Object.keys(modals).forEach(function(index) {
+    if (index == modal) {
+      modals[index].classList.remove("hidden")
+    } else {
+      modals[index].classList.add("hidden")
+    }
+  })
+}
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -410,8 +444,7 @@ function update() {
     // try_again.visible = false;
     balloons = Array(0);
 
-		modal_gameover.classList.add("hidden");
-		modal_about.classList.add("hidden");
+		showModal();
 
     cmode = "game";
   }
@@ -485,12 +518,13 @@ function update() {
 
     //try_again.visible = true;
 
-		modal_gameover.classList.remove("hidden");
-		modal_about.classList.add("hidden");
+    showModal("gameover");
+    cmode = "ended"
+
+  } else if (cmode == "ended") {
 
   } else if (cmode == "about") {
 		bmpText.text = "";
-		modal_gameover.classList.add("hidden");
-		modal_about.classList.remove("hidden");
+		showModal("about")
   }
 }
