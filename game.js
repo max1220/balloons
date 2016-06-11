@@ -54,10 +54,12 @@ button_submit.onclick = function() {
     state: JSON.stringify(state)
   }));
 
-  iframe_highscore.src = config.highscore_url;
   iframe_highscore.onload = function() {
-    iframe_highscore.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    console.log("iframe onload")
+    iframe_highscore.style.height = iframe_highscore.contentWindow.document.body.scrollHeight + 'px';
   }
+  iframe_highscore.src = config.highscore_url;
+
 
   console.log("Hello World!")
   showModal("highscore");

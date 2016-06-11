@@ -1,9 +1,9 @@
-#!/usr/bin/env lua
+#!/usr/bin/env lua5.1
 
 local json = require("cjson")
 
 local config = {
-  path = "/home/max/Stuff/balloons/",
+  path = "/home/max/Gitstuff/balloons/",
   logfile = "log.txt",
   scorefile = "score.txt"
 }
@@ -144,12 +144,13 @@ function httperror(title, str)
 end
 
 function addEntry(name, game_config, game_state)
-  assert(type(name) == "string")
-  assert(type(game_config) == "table")
-  assert(type(game_state) == "table")
-  assert(tonumber(game_state.total_popped))
+  assert(type(name) == "string", "Name not a string")
+  assert(type(game_config) == "table", "Invalid game config!")
+  assert(type(game_state) == "table", "Invalid game state!")
+  assert(tonumber(game_state.total_popped), "Invalid game state! (Missing total_popped)")
 
-  local scorefile = assert(io.open(config.path .. config.scorefile, "a"))
+  print("!!!!!1", config.path .. config.scorefile)
+  local scorefile = assert(io.open(config.path .. config.scorefile, "a"), "Can't open score file!")
   scorefile:write(urlencode(name) .. "!" .. os.time() .. "!" .. game_state.total_popped .. "\n")
   scorefile:close()
   logf("Added highscore entry for %s (score: %d)", name, tonumber(game_state.total_popped))
@@ -241,7 +242,7 @@ log(("="):rep(40))
 log("Started!")
 if _G["http_" .. tostring(os.getenv("REQUEST_METHOD"))] then
   -- Diabolic...
-  io.write((_G["http_" .. os.getenv("REQUEST_METHOD")](urldecode(os.getenv("QUERY_STRING") or ""), urldecode(io.read("*a") or ""))))
+  io.write((_G["http_" .. os.getenv("REQUEST_METHOD"):upper()](urldecode(os.getenv("QUERY_STRING") or ""), urldecode(io.read("*a") or ""))))
 else
   io.write("Content-type: text/html\n\n<h1>Unknown method!</h1>")
 end
