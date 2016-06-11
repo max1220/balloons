@@ -271,3 +271,19 @@ Sat Jun 11 07:40:17 2016 - GET
 Sat Jun 11 07:40:17 2016 - ========================================
 Sat Jun 11 07:40:17 2016 - Started!
 Sat Jun 11 07:40:17 2016 - GET
+Sat Jun 11 08:01:43 2016 - ========================================
+Sat Jun 11 08:01:43 2016 - Started!
+Sat Jun 11 08:01:43 2016 - POST
+Sat Jun 11 08:01:43 2016 - Added highscore entry for max (score: 123)
+Sat Jun 11 08:01:43 2016 - GET
+Sat Jun 11 08:01:43 2016 - ========================================
+Sat Jun 11 08:01:43 2016 - Started!
+Sat Jun 11 08:01:43 2016 - GET
+Sat Jun 11 08:05:15 2016 - ========================================
+Sat Jun 11 08:05:15 2016 - Started!
+Sat Jun 11 08:05:15 2016 - POST
+Sat Jun 11 08:05:15 2016 - Added highscore entry for max (score: 60)
+Sat Jun 11 08:05:15 2016 - GET
+Sat Jun 11 08:05:15 2016 - ========================================
+Sat Jun 11 08:05:15 2016 - Started!
+Sat Jun 11 08:05:15 2016 - GET

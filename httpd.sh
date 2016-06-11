@@ -1,1 +1,1 @@
-busybox httpd -p 8080 -h .
+busybox httpd -p 8080

@@ -7,7 +7,10 @@ var span_score = document.getElementById("span_score")
 var button_start = document.getElementById("button_start")
 var button_submit = document.getElementById("button_submit")
 var button_tryagain = document.getElementById("button_tryagain")
+var button_higscore_restart = document.getElementById("button_higscore_restart")
 var iframe_highscore = document.getElementById("iframe_highscore")
+
+
 
 var game = new Phaser.Game(gameContainer.clientWidth, gameContainer.clientHeight, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
 
@@ -38,6 +41,9 @@ var text = "";
 
 button_start.onclick = function() {
 	cmode = "start";
+}
+button_higscore_restart.onclick = function() {
+  cmode = "start";
 }
 
 button_submit.onclick = function() {
