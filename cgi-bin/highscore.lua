@@ -2,11 +2,7 @@
 
 local json = require("dkjson")
 
-local config = {
-  path = "/home/balloons/",
-  logfile = "log.txt",
-  scorefile = "score.txt"
-}
+local config = require("config")
 
 function template(body, title)
   local template = [===[Content-type: text/html
