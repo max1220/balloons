@@ -288,11 +288,12 @@ function changeBalloon() {
     img: 'balloon',
     scale: 3,
     onClick: [normalBalloon_onClick, function() {
-      state.changeBalloonns_popped += 1
-      state.lifes = Math.min(state.lifes + 1, 10)
+      state.changeBalloonns_popped += 1;
+      state.lifes = Math.min(state.lifes + 1, 10);
+      this.remove = true;
     }],
     onOut: [normalBalloon_onOut, function() {
-      state.changeBalloons_missed += 1
+      state.changeBalloons_missed += 1;
     }],
     onUpdate: [function(balloon, dt) {
       balloon.hue += (balloon.hue_v * dt)
