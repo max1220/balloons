@@ -1,9 +1,9 @@
-#!/usr/bin/env lua5.1
+#!/usr/bin/env lua
 
-local json = require("cjson")
+local json = require("dkjson")
 
 local config = {
-  path = "/home/max/Gitstuff/balloons/",
+  path = "/home/balloons/",
   logfile = "log.txt",
   scorefile = "score.txt"
 }
@@ -112,7 +112,7 @@ end
 
 function urldecode(str)
   local parms = {}
-  for name, value in str:gfind("([^&=]+)=([^&=]+)") do
+  for name, value in str:gmatch("([^&=]+)=([^&=]+)") do
     local name = unescape(name)
     local value = unescape(value)
     parms[name] = value
