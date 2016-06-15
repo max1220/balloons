@@ -45,7 +45,7 @@ button_submit.onclick = function() {
     iframe_highscore.style.height = iframe_highscore.contentWindow.document.body.scrollHeight + 'px';
   }
 
-	iframe_highscore.body.innerHTML = '<h1>Please wait, loading highscore...</h1>';
+	iframe_highscore.innerHTML = '<h1>Please wait, loading highscore...</h1>';
 	setTimeout(function() {
 		iframe_highscore.src = config.highscore_url;
 	},1000);
