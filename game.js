@@ -39,12 +39,13 @@ button_submit.onclick = function() {
     name: username,
     config: JSON.stringify(config),
     state: JSON.stringify(state)
-  }), false);
+  }));
 
   iframe_highscore.onload = function() {
     iframe_highscore.style.height = iframe_highscore.contentWindow.document.body.scrollHeight + 'px';
   }
 
+	iframe_highscore.body.innerHTML = '<h1>Please wait, loading highscore...</h1>';
 	setTimeout(function() {
 		iframe_highscore.src = config.highscore_url;
 	},1000);
