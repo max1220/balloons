@@ -39,19 +39,17 @@ button_submit.onclick = function() {
     name: username,
     config: JSON.stringify(config),
     state: JSON.stringify(state)
-  }));
+  }), false);
 
   iframe_highscore.onload = function() {
-    console.log("iframe onload")
     iframe_highscore.style.height = iframe_highscore.contentWindow.document.body.scrollHeight + 'px';
   }
 
 	setTimeout(function() {
 		iframe_highscore.src = config.highscore_url;
-	},250);
+	},1000);
 
 
-  console.log("Hello World!")
   showModal("highscore");
 
 	// cmode = "start";

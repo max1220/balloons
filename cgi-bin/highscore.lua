@@ -145,7 +145,6 @@ function addEntry(name, game_config, game_state)
   assert(type(game_state) == "table", "Invalid game state!")
   assert(tonumber(game_state.total_popped), "Invalid game state! (Missing total_popped)")
 
-  print("!!!!!1", config.path .. config.scorefile)
   local scorefile = assert(io.open(config.path .. config.scorefile, "a"), "Can't open score file!")
   scorefile:write(urlencode(name) .. "!" .. os.time() .. "!" .. game_state.total_popped .. "\n")
   scorefile:close()
