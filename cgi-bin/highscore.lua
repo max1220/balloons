@@ -210,7 +210,7 @@ function http_GET(parms)
       break
     end
   end
-  str = str .. "</table>\n<p>\n\ttotal entrys: <b>" .. #entrys .. "</b> | <a href=\"../score.txt\">complete highscore dump</a>\n</p>\n"
+  str = str .. "</table>\n<p>\n\ttotal entrys: <b>" .. #entrys .. "</b> | <a href=\"/balloons/score.txt\">complete highscore dump</a>\n</p>\n"
 
   return template(str, "highscore")
 end

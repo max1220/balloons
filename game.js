@@ -45,7 +45,10 @@ button_submit.onclick = function() {
     console.log("iframe onload")
     iframe_highscore.style.height = iframe_highscore.contentWindow.document.body.scrollHeight + 'px';
   }
-  iframe_highscore.src = config.highscore_url;
+
+	setTimeout(function() {
+		iframe_highscore.src = config.highscore_url;
+	},250);
 
 
   console.log("Hello World!")
