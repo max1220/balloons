@@ -79,22 +79,26 @@ end
 
 
 function htmlescape(str)
-	str = str:gsub("&", "&amp;")
-  for k,v in pairs({
-  	["<"] = "&lt;",
-  	[">"] = "&gt;",
-  	['"'] = "&quot;",
-  	["'"] = "&#39;",
-  	["Ä"] = "&Auml;",
-  	["ä"] = "&auml;",
-  	["Ö"] = "&Ouml;",
-  	["ö"] = "&ouml;",
-  	["Ü"] = "&Uuml;",
-  	["ü"] = "&uuml;"
-  }) do
-    str = str:gsub(k,v)
+  if type(str) == "string" then
+  	str = str:gsub("&", "&amp;")
+    for k,v in pairs({
+    	["<"] = "&lt;",
+    	[">"] = "&gt;",
+    	['"'] = "&quot;",
+    	["'"] = "&#39;",
+    	["Ä"] = "&Auml;",
+    	["ä"] = "&auml;",
+    	["Ö"] = "&Ouml;",
+    	["ö"] = "&ouml;",
+    	["Ü"] = "&Uuml;",
+    	["ü"] = "&uuml;"
+    }) do
+      str = str:gsub(k,v)
+    end
+    return str
+  else
+    return ""
   end
-  return str
 end
 
 
@@ -158,7 +162,7 @@ function getEntrys()
     if line and #line >= 1 then
       local name,time,popped = line:match("(.*)!(%d*)!(%d*)")
       if name and tonumber(time) and tonumber(popped) then
-        entrys[#entrys + 1] = {name=urldecode(name), time=tonumber(time), popped=tonumber(popped)}
+        entrys[#entrys + 1] = {name=unescape(name), time=tonumber(time), popped=tonumber(popped)}
       end
     end
   end
@@ -204,6 +208,7 @@ function http_GET(parms)
   for i=1, 10 do
     local centry = entrys[i]
     if centry then
+      log("!!!", centry.name, centry.time, centry.popped)
       str = str .. ("\t<tr>\n\t\t<td>%s</td>\n\t\t<td>%s</td>\n\t\t<td>%d</td>\n\t</tr>\n"):format(htmlescape(centry.name), os.date("%c", centry.time), centry.popped)
     else
       break
