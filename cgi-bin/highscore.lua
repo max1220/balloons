@@ -158,7 +158,7 @@ function getEntrys()
     if line and #line >= 1 then
       local name,time,popped = line:match("(.*)!(%d*)!(%d*)")
       if name and tonumber(time) and tonumber(popped) then
-        entrys[#entrys + 1] = {name=name, time=time, popped=popped}
+        entrys[#entrys + 1] = {name=urldecode(name), time=tonumber(time), popped=tonumber(popped)}
       end
     end
   end
