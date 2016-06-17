@@ -1,6 +1,6 @@
 -- this file should not be executable!
 return {
-  path = "/home/max/Stuff/balloons/",
+  path = "/var/www/balloons/",
   logfile = "log.txt",
   scorefile = "score.txt"
 }
