@@ -5,6 +5,11 @@ local json = require("dkjson")
 local config = require("config")
 
 function template(body, title)
+  -- TODO: Make sure here are no pattern-characters!
+  local body = tostring(body):gsub("%%", "%%%%")
+  local title = tostring(title):gsub("%%", "%%%%")
+
+
   local template = [===[Content-type: text/html
 
   <!DOCTYPE html>
